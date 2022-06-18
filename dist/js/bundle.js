@@ -100,19 +100,34 @@ function openModal(modalSelector, modalTimerId){
       modal.classList.remove("show");
       document.body.style.overflow = "";
    }
-function modal(triggerSelector, modalSelector, modalTimerId){
+function modal(triggerSelector, modalSelector, modalTimerId, closeClickOverlay = true){
    const modalTrigger = document.querySelectorAll(triggerSelector),
          modal = document.querySelector(modalSelector),
-         modalCloseBtn = document.querySelectorAll("[data-close]");
+         modalCloseBtn = document.querySelectorAll("[data-close]"),
+         windows = document.querySelectorAll("[data-modal]");
    modalTrigger.forEach(btn => {
-      btn.addEventListener("click", () => openModal(modalSelector, modalTimerId));
+      btn.addEventListener("click", () => {
+         windows.forEach(item => {
+            item.classList.add("hide")
+         });
+         openModal(modalSelector, modalTimerId);
+      } 
+      );
    });
-   
    modalCloseBtn.forEach(item => {
-      item.addEventListener("click", () => closeModal(modalSelector));
+      item.addEventListener("click", () => {
+         windows.forEach(item => {
+            item.classList.add("hide")
+         });
+         closeModal(modalSelector);
+      } 
+   )
    });
    modal.addEventListener("click", (e) =>{
-      if (e.target === modal || e.target.getAttribute('data-close') == ""){
+      if (e.target === modal && closeClickOverlay){
+         windows.forEach(item => {
+            item.classList.add("hide")
+         });
          closeModal(modalSelector);
       }
    });
@@ -125,6 +140,81 @@ function modal(triggerSelector, modalSelector, modalTimerId){
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modal);
 
 
+
+/***/ }),
+
+/***/ "./src/js/modules/modals.js":
+/*!**********************************!*\
+  !*** ./src/js/modules/modals.js ***!
+  \**********************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+const modals = () => {
+   function bindModal(triggerSelector, modalSelector, closeSelector, closeClickOverlay = true) {
+      const trigger = document.querySelectorAll(triggerSelector),
+            modal = document.querySelector(modalSelector),
+            close = document.querySelector(closeSelector),
+            windows = document.querySelectorAll('[data-modal]');
+
+      trigger.forEach(item => {
+            item.addEventListener('click', (e) => {
+               if (e.target) {
+                  e.preventDefault();
+               }
+
+               windows.forEach(item => {
+                  item.style.display = 'none';
+               });
+   
+               modal.style.display = "block";
+               document.body.style.overflow = "hidden";
+                // document.body.classList.add('modal-open');
+            });
+      });
+
+      close.addEventListener('click', () => {
+            windows.forEach(item => {
+               item.style.display = 'none';
+            });
+
+            modal.style.display = "none";
+            document.body.style.overflow = "";
+            // document.body.classList.remove('modal-open');
+      });
+
+      modal.addEventListener('click', (e) => {
+            if (e.target === modal && closeClickOverlay) {
+               windows.forEach(item => {
+                  item.style.display = 'none';
+               });
+
+               modal.style.display = "none";
+               document.body.style.overflow = ""; 
+                // document.body.classList.remove('modal-open');
+            }
+      });
+   }
+
+   function showModalByTime(selector, time) {
+      setTimeout(function() {
+            document.querySelector(selector).style.display = 'block';
+            document.body.style.overflow = "hidden";
+      }, time);
+   }
+
+   bindModal('.popup_engineer_btn', '.popup_engineer', '.popup_engineer .popup_close');
+   bindModal('.phone_link', '.popup', '.popup .popup_close');
+   bindModal('.popup_calc_btn', '.popup_calc', '.popup_calc_close');
+   bindModal('.popup_calc_button', '.popup_calc_profile', '.popup_calc_profile_close', false);
+   bindModal('.popup_calc_profile_button', '.popup_calc_end', '.popup_calc_end_close', false);
+    // showModalByTime('.popup', 60000);
+};
+
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (modals);
 
 /***/ }),
 
@@ -302,20 +392,24 @@ var __webpack_exports__ = {};
   !*** ./src/js/script.js ***!
   \**************************/
 __webpack_require__.r(__webpack_exports__);
-/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
+/* harmony import */ var _modules_modals__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./modules/modals */ "./src/js/modules/modals.js");
 /* harmony import */ var _modules_timer__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./modules/timer */ "./src/js/modules/timer.js");
 /* harmony import */ var _modules_forms__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./modules/forms */ "./src/js/modules/forms.js");
 /* harmony import */ var _modules_tabs__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./modules/tabs */ "./src/js/modules/tabs.js");
+/* harmony import */ var _modules_modal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./modules/modal */ "./src/js/modules/modal.js");
 
 
 
 
 
 window.addEventListener("DOMContentLoaded", () =>{
-   const modalTimerId = setTimeout(() => (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__.openModal)(".popup", modalTimerId), 60000);
-   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".popup_engineer_btn", ".popup_engineer");
-   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".phone_link", ".popup", modalTimerId);
-   (0,_modules_modal__WEBPACK_IMPORTED_MODULE_0__["default"])(".popup_calc_btn", ".popup_calc");
+   /*const modalTimerId = setTimeout(() => openModal(".popup", modalTimerId), 60000);
+   modal(".popup_engineer_btn", ".popup_engineer");
+   modal(".phone_link", ".popup", modalTimerId);
+   modal(".popup_calc_btn", ".popup_calc");
+   modal(".popup_calc_button", ".popup_calc_profile", "", false);
+   modal(".popup_calc_profile_button", ".popup_calc_end", "", false);*/
+   (0,_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();
    (0,_modules_timer__WEBPACK_IMPORTED_MODULE_1__["default"])("#timer", "2022-07-12");
    (0,_modules_forms__WEBPACK_IMPORTED_MODULE_2__["default"])();
    (0,_modules_tabs__WEBPACK_IMPORTED_MODULE_3__["default"])('.glazing_slider ', '.glazing_block', '.glazing_content', 'active');

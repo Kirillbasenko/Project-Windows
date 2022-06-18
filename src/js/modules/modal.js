@@ -19,21 +19,27 @@ function modal(triggerSelector, modalSelector, modalTimerId, closeClickOverlay =
          modalCloseBtn = document.querySelectorAll("[data-close]"),
          windows = document.querySelectorAll("[data-modal]");
    modalTrigger.forEach(btn => {
-      btn.addEventListener("click", () => openModal(modalSelector, modalTimerId));
-   });
-   windows.forEach(item => {
-      item.style.display = "none";
+      btn.addEventListener("click", () => {
+         windows.forEach(item => {
+            item.classList.add("hide")
+         });
+         openModal(modalSelector, modalTimerId);
+      } 
+      );
    });
    modalCloseBtn.forEach(item => {
-      windows.forEach(item => {
-      item.style.display = "none";
-   });
-      item.addEventListener("click", () => closeModal(modalSelector));
+      item.addEventListener("click", () => {
+         windows.forEach(item => {
+            item.classList.add("hide")
+         });
+         closeModal(modalSelector);
+      } 
+   )
    });
    modal.addEventListener("click", (e) =>{
-      if (e.target === modal || closeClickOverlay){
+      if (e.target === modal && closeClickOverlay){
          windows.forEach(item => {
-            item.style.display = "none";
+            item.classList.add("hide")
          });
          closeModal(modalSelector);
       }

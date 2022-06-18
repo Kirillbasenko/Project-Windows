@@ -1,13 +1,16 @@
-import modal from "./modules/modal";
+import modals from "./modules/modals";
 import timer from "./modules/timer";
 import forms from "./modules/forms";
 import tabs from "./modules/tabs";
 import {openModal} from "./modules/modal";
 window.addEventListener("DOMContentLoaded", () =>{
-   const modalTimerId = setTimeout(() => openModal(".popup", modalTimerId), 60000);
-   modal(".popup_engineer_btn", ".popup_engineer", modalTimerId, false);
+   /*const modalTimerId = setTimeout(() => openModal(".popup", modalTimerId), 60000);
+   modal(".popup_engineer_btn", ".popup_engineer");
    modal(".phone_link", ".popup", modalTimerId);
    modal(".popup_calc_btn", ".popup_calc");
+   modal(".popup_calc_button", ".popup_calc_profile", "", false);
+   modal(".popup_calc_profile_button", ".popup_calc_end", "", false);*/
+   modals();
    timer("#timer", "2022-07-12");
    forms();
    tabs('.glazing_slider ', '.glazing_block', '.glazing_content', 'active');
