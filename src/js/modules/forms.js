@@ -1,14 +1,9 @@
-
-function forms(){
+import checkNumInputs from "./checkNumInputs";
+function forms(state){
    const forms = document.querySelectorAll("form"),
-         inputs = document.querySelectorAll("input"),
-         phoneInputs = document.querySelectorAll("input[name='user_phone']");
+         inputs = document.querySelectorAll("input");
 
-         phoneInputs.forEach(item => {
-            item.addEventListener("input", () => {
-               item.value = item.value.replace(/\D/, "");
-            });
-         });
+   checkNumInputs("input[name='user_phone']");
 
    const message = {
       loading: "Загрузка",
@@ -37,10 +32,15 @@ function forms(){
          item.appendChild(statusMessage);
 
          const formData = new FormData(item);
+         if(item.getAttribute("data-calt") === "end"){
+            for(let key in state){
+               formData.append(key, state[key]);
+            }
+         }
 
          const json = JSON.stringify(Object.fromEntries(formData.entries()));
 
-         postData("http://localhost:3000/requests", json)
+         postData("assets/server.php", formData)
          .then(res => {
             console.log(res);
             statusMessage.textContent = message.success;
