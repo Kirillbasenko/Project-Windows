@@ -136,8 +136,6 @@ function forms(state){
             }
          }
 
-         const json = JSON.stringify(Object.fromEntries(formData.entries()));
-
          postData("assets/server.php", formData)
          .then(res => {
             console.log(res);
@@ -487,14 +485,7 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
-//import {openModal} from "./modules/modal";
 window.addEventListener("DOMContentLoaded", () =>{
-   /*const modalTimerId = setTimeout(() => openModal(".popup", modalTimerId), 60000);
-   modal(".popup_engineer_btn", ".popup_engineer");
-   modal(".phone_link", ".popup", modalTimerId);
-   modal(".popup_calc_btn", ".popup_calc");
-   modal(".popup_calc_button", ".popup_calc_profile", "", false);
-   modal(".popup_calc_profile_button", ".popup_calc_end", "", false);*/
    let modalState = {};
    (0,_modules_changeModalState__WEBPACK_IMPORTED_MODULE_5__["default"])(modalState);
    (0,_modules_modals__WEBPACK_IMPORTED_MODULE_0__["default"])();

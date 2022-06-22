@@ -38,8 +38,6 @@ function forms(state){
             }
          }
 
-         const json = JSON.stringify(Object.fromEntries(formData.entries()));
-
          postData("assets/server.php", formData)
          .then(res => {
             console.log(res);
