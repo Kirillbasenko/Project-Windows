@@ -8,7 +8,7 @@ window.addEventListener("DOMContentLoaded", () =>{
    let modalState = {};
    changeModalState(modalState);
    modals();
-   timer("#timer", "2022-07-12");
+   timer("#timer", "2023-02-24");
    forms(modalState);
    images();
    tabs('.glazing_slider ', '.glazing_block', '.glazing_content', 'active');

@@ -1,7 +1,8 @@
 import checkNumInputs from "./checkNumInputs";
 function forms(state){
    const forms = document.querySelectorAll("form"),
-         inputs = document.querySelectorAll("input");
+         inputs = document.querySelectorAll("input"),
+         modal = document.querySelector(".popup_calc_end");
 
    checkNumInputs("input[name='user_phone']");
 
@@ -32,7 +33,7 @@ function forms(state){
          item.appendChild(statusMessage);
 
          const formData = new FormData(item);
-         if(item.getAttribute("data-calt") === "end"){
+         if(item.getAttribute("data-calc") === "end"){
             for(let key in state){
                formData.append(key, state[key]);
             }
@@ -48,6 +49,9 @@ function forms(state){
             clearInputs();
             setTimeout(() => {
                statusMessage.remove();
+               modal.style.display = "none";
+               document.body.style.overflow = "";
+               document.body.style.marginRight = `0px`;
             }, 5000);
          });
       });

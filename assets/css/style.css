@@ -380,9 +380,15 @@ textarea:focus {
   padding: 8rem 0;
 }
 
+.glazing_slider{
+  text-align: center;
+}
+
 .glazing_block {
   display: inline-block;
-  margin: 0px 80px 0px 0px;
+  justify-content: space-between;
+  margin: 0px 50px 0px 0px;
+  
 }
 
 .glazing_block img {
